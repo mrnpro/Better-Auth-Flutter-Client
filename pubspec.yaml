@@ -1,6 +1,6 @@
 name: better_auth_client
 description: "A Flutter client for Better Auth authentication service"
-version: 0.0.1
+version: 0.0.2
 homepage: "https://github.com/yourusername/better_auth_client"
 
 environment:
@@ -13,7 +13,7 @@ dependencies:
   http: ^1.2.1
   flutter_secure_storage: ^9.0.0
   url_launcher: ^6.2.5
-  app_links: ^3.4.3
+  app_links: ^7.0.0
 
 dev_dependencies:
   flutter_test:
