@@ -3,40 +3,19 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'better_auth_local_storage_service.dart';
 
 class FlutterSecureImpl extends BetterAuthLocalStorage {
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
-  @override
-  Future<void> create(String key, String value) async {
-    try {
-      await _storage.write(key: key, value: value);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   @override
-  Future<void> delete(String key) async {
-    try {
-      await _storage.delete(key: key);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  Future<void> create(String key, String value) =>
+      _storage.write(key: key, value: value);
 
   @override
-  Future<String> get(String key) async {
-    try {
-      return await _storage.read(key: key) ?? '';
-    } catch (e) {
-      rethrow;
-    }
-  }
+  Future<void> delete(String key) => _storage.delete(key: key);
 
   @override
-  Future<void> update(String key, String value) async {
-    try {
-      await _storage.write(key: key, value: value);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  Future<String> get(String key) async => await _storage.read(key: key) ?? '';
+
+  @override
+  Future<void> update(String key, String value) =>
+      _storage.write(key: key, value: value);
 }
