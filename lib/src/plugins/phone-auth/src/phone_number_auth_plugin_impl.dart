@@ -1,14 +1,14 @@
 import 'package:better_auth_client/src/core/handlers/error-handler/error_handler.dart';
 import 'package:better_auth_client/src/core/types.dart';
 import 'package:better_auth_client/src/plugins/phone-auth/phone_auth_plugin.dart';
-import '../../../core/configs/api_endpoints.dart';
+import 'phone_auth_endpoints.dart';
 import '../../../service/http-service/http_service.dart';
 
 class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   final HttpService _httpService;
 
   PhoneNumberAuthPluginImpl({HttpService? httpService})
-      : _httpService = httpService ?? HttpService.instance;
+    : _httpService = httpService ?? HttpService.instance;
 
   @override
   Future<void> sendOtp({
@@ -18,7 +18,7 @@ class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        ApiEndpoints.phoneSendOtp,
+        PhoneAuthEndpoints.sendOtp,
         body: {'phone': phone},
       );
 
@@ -40,7 +40,7 @@ class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        ApiEndpoints.phoneVerifyOtp,
+        PhoneAuthEndpoints.verifyOtp,
         body: {
           'phone': phone,
           'otp': otp,
@@ -64,7 +64,7 @@ class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        ApiEndpoints.phoneForgetPassword,
+        PhoneAuthEndpoints.forgetPassword,
         body: {'phone': phone},
       );
 
@@ -85,7 +85,7 @@ class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        ApiEndpoints.phoneResetPassword,
+        PhoneAuthEndpoints.resetPassword,
         body: {
           'otp': otp,
           'phoneNumber': phoneNumber,

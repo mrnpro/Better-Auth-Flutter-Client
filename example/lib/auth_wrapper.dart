@@ -26,7 +26,8 @@ class AuthWrapperWidget extends StatelessWidget {
         }
 
         // For any other state (waiting, no data, null data), show login screen
-        dev.log('🔒 AuthWrapper: Not authenticated or loading, showing auth screen');
+        dev.log(
+            '🔒 AuthWrapper: Not authenticated or loading, showing auth screen');
         return onAuthorizedChild;
       },
     );

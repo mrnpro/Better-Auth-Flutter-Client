@@ -67,6 +67,8 @@ void main() async {
   // Initialize the authentication client
   BetterAuthClient.create(
     baseUrl: 'https://your-auth-api.com',
+    // Optional: Customize the API prefix (defaults to '/api/auth')
+    prefix: '/custom/auth/prefix',
   );
   
   // Run your app
@@ -74,7 +76,7 @@ void main() async {
 }
 ```
 
-This ensures that authentication is properly set up before your application starts and is available throughout your entire app.
+This ensures that authentication is properly set up before your application starts and is available throughout your entire app. You can also specify an optional `prefix` parameter if your Better Auth endpoints live at a different base path than the default `/api/auth`.
 
 ### Email authentication
 

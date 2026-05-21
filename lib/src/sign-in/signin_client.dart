@@ -1,5 +1,4 @@
 import 'package:better_auth_client/better_auth_client.dart';
-import 'package:better_auth_client/src/core/handlers/error-handler/models/better_auth_exception.dart';
 
 import '../core/types.dart';
 import 'src/signin_client_impl.dart';
@@ -7,7 +6,8 @@ import 'src/signin_client_impl.dart';
 abstract class SigninClient {
   static SigninClient get getDefaultInstance => SignInClientImpl();
 
-  Future<({BetterAuthException? error, User? user, bool? requiresTwoFactor})> email({
+  Future<({BetterAuthException? error, User? user, bool? requiresTwoFactor})>
+  email({
     required String email,
     required String password,
     Success<User>? onSuccess,

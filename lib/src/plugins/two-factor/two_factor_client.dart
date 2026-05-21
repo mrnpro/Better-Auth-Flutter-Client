@@ -1,3 +1,4 @@
+import 'two_factor_endpoints.dart';
 import 'package:better_auth_client/src/core/handlers/error-handler/error_handler.dart';
 import 'package:better_auth_client/src/core/handlers/error-handler/models/better_auth_exception.dart';
 import 'package:better_auth_client/src/core/types.dart';
@@ -101,7 +102,7 @@ class TwoFactorClientImpl with ErrorHandler implements TwoFactorClient {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        '/api/auth/two-factor/generate',
+        TwoFactorEndpoints.generate,
       );
 
       final setupData = TwoFactorSetupData.fromJson(response.body['data']);
@@ -123,7 +124,7 @@ class TwoFactorClientImpl with ErrorHandler implements TwoFactorClient {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        '/api/auth/two-factor/enable',
+        TwoFactorEndpoints.enable,
         body: {'code': code},
       );
 
@@ -148,7 +149,7 @@ class TwoFactorClientImpl with ErrorHandler implements TwoFactorClient {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        '/api/auth/two-factor/verify',
+        TwoFactorEndpoints.verify,
         body: {'code': code},
       );
 
@@ -171,7 +172,7 @@ class TwoFactorClientImpl with ErrorHandler implements TwoFactorClient {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        '/api/auth/two-factor/disable',
+        TwoFactorEndpoints.disable,
         body: {'code': code},
       );
 
@@ -192,9 +193,7 @@ class TwoFactorClientImpl with ErrorHandler implements TwoFactorClient {
     Error<BetterAuthException>? onError,
   }) async {
     try {
-      final response = await _httpService.getRequest(
-        '/api/auth/two-factor/status',
-      );
+      final response = await _httpService.getRequest(TwoFactorEndpoints.status);
 
       final enabled = response.body['data']['enabled'] as bool;
       onSuccess?.call(enabled);

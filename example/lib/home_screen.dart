@@ -217,7 +217,8 @@ class _HomeScreenState extends State<HomeScreen> {
               if (codeController.text.length != 6) {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please enter a 6-digit code')),
+                    const SnackBar(
+                        content: Text('Please enter a 6-digit code')),
                   );
                 }
                 return;
@@ -376,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.red.shade900.withOpacity(0.2),
+                    color: Colors.red.shade900.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.red.shade400),
                   ),

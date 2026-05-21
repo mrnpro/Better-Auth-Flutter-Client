@@ -271,39 +271,6 @@ class _AuthScreenState extends State<AuthScreen>
     }
   }
 
-  Future<void> _forgotPassword() async {
-    if (_emailController.text.isEmpty) {
-      setState(() => _error = 'Please enter your email');
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
-
-    try {
-      await BetterAuthClient.instance.forgetPassword(
-        email: _emailController.text,
-        onSuccess: (ctx) {
-          log("Success ${ctx.toString()}");
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Password reset email sent!')),
-          );
-        },
-        onError: (error) {
-          setState(() => _error = error.message);
-        },
-      );
-    } catch (e) {
-      setState(() => _error = e.toString());
-    } finally {
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
-    }
-  }
-
   Future<void> _verifyTwoFactor() async {
     if (_twoFactorController.text.isEmpty) {
       setState(() => _error = 'Please enter your 2FA code');
@@ -527,7 +494,7 @@ class _AuthScreenState extends State<AuthScreen>
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.red.shade900.withOpacity(0.2),
+                      color: Colors.red.shade900.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.red.shade400),
                     ),
@@ -556,7 +523,7 @@ class _AuthScreenState extends State<AuthScreen>
                           color: Colors.grey.shade600,
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                        const Text(
                           'Sign in as Guest',
                           style: TextStyle(
                             fontSize: 24,
