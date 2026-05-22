@@ -8,7 +8,7 @@ class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   final HttpService _httpService;
 
   PhoneNumberAuthPluginImpl({HttpService? httpService})
-      : _httpService = httpService ?? HttpService.instance;
+    : _httpService = httpService ?? HttpService.instance;
 
   @override
   Future<void> sendOtp({
@@ -33,6 +33,7 @@ class PhoneNumberAuthPluginImpl with ErrorHandler implements PhoneAuthPlugin {
   Future<void> verify({
     required String phone,
     required String otp,
+    Map<String, dynamic>? options,
     bool updatePhoneNumber = false,
     bool disableSession = true,
     Success? onSuccess,
