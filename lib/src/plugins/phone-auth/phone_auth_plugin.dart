@@ -1,4 +1,3 @@
-
 import 'package:better_auth_client/src/plugins/phone-auth/src/phone_number_auth_plugin_impl.dart';
 
 import '../../core/types.dart';
@@ -15,6 +14,7 @@ abstract class PhoneAuthPlugin {
   Future<void> verify({
     required String phone,
     required String otp,
+    Map<String, dynamic>? options,
     bool updatePhoneNumber = false,
     bool disableSession = true,
     Success? onSuccess,
