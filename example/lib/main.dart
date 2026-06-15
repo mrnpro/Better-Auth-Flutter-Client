@@ -682,20 +682,19 @@ class _AuthScreenState extends State<AuthScreen>
                     const Text('Remember me'),
                     const Spacer(),
                     TextButton(
-                      onPressed: _isLoading
-                          ? null
-                          : () => Navigator.push(
+                      onPressed:
+                          _isLoading
+                              ? null
+                              : () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgotPasswordScreen(),
+                                  builder:
+                                      (context) => const ForgotPasswordScreen(),
                                 ),
                               ),
                       child: Text(
                         'Forgot Password?',
-                        style: TextStyle(
-                          color: Colors.grey.shade400,
-                        ),
+                        style: TextStyle(color: Colors.grey.shade400),
                       ),
                     ),
                   ],
@@ -706,15 +705,16 @@ class _AuthScreenState extends State<AuthScreen>
                     width: double.infinity,
                     height: 50,
                     child: OutlinedButton(
-                      onPressed: _isLoading
-                          ? null
-                          : () {
-                              setState(() {
-                                _requiresTwoFactor = false;
-                                _twoFactorController.clear();
-                                _error = null;
-                              });
-                            },
+                      onPressed:
+                          _isLoading
+                              ? null
+                              : () {
+                                setState(() {
+                                  _requiresTwoFactor = false;
+                                  _twoFactorController.clear();
+                                  _error = null;
+                                });
+                              },
                       child: const Text('Back to Sign In'),
                     ),
                   ),
@@ -725,29 +725,28 @@ class _AuthScreenState extends State<AuthScreen>
                   height: 50,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _submit,
-                    child: _isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
+                    child:
+                        _isLoading
+                            ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                            : Text(
+                              _requiresTwoFactor
+                                  ? 'Verify 2FA'
+                                  : _tabController.index == 3
+                                  ? 'Continue as Guest'
+                                  : _isPhoneAuth
+                                  ? (_phoneOtpSent ? 'Verify OTP' : 'Send OTP')
+                                  : (_isSignIn ? 'Sign In' : 'Sign Up'),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          )
-                        : Text(
-                            _requiresTwoFactor
-                                ? 'Verify 2FA'
-                                : _tabController.index == 3
-                                    ? 'Continue as Guest'
-                                    : _isPhoneAuth
-                                        ? (_phoneOtpSent
-                                            ? 'Verify OTP'
-                                            : 'Send OTP')
-                                        : (_isSignIn ? 'Sign In' : 'Sign Up'),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -784,9 +783,7 @@ class _AuthScreenState extends State<AuthScreen>
                     icon: const Icon(Icons.code),
                     label: const Text(
                       'Continue with GitHub',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -794,10 +791,7 @@ class _AuthScreenState extends State<AuthScreen>
                 Center(
                   child: Text(
                     'Powered by better-auth',
-                    style: TextStyle(
-                      color: Colors.grey.shade600,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                   ),
                 ),
               ],

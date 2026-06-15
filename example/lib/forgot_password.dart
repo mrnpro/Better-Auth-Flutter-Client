@@ -86,10 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 const SizedBox(height: 8),
                 Text(
                   'Enter your email address and we\'ll send you instructions to reset your password.',
-                  style: TextStyle(
-                    color: Colors.grey.shade400,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: Colors.grey.shade400, height: 1.5),
                 ),
                 const SizedBox(height: 32),
                 if (_error != null)
@@ -123,8 +120,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.check_circle_outline,
-                            color: Colors.green.shade400),
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.green.shade400,
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -159,21 +158,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _resetPassword,
-                    child: _isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
+                    child:
+                        _isLoading
+                            ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                            : const Text(
+                              'Send Reset Instructions',
+                              style: TextStyle(fontWeight: FontWeight.w600),
                             ),
-                          )
-                        : const Text(
-                            'Send Reset Instructions',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -182,9 +180,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     onPressed: () => Navigator.pop(context),
                     child: Text(
                       'Back to Sign In',
-                      style: TextStyle(
-                        color: Colors.grey.shade400,
-                      ),
+                      style: TextStyle(color: Colors.grey.shade400),
                     ),
                   ),
                 ),

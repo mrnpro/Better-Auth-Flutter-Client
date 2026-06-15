@@ -98,157 +98,162 @@ class _HomeScreenState extends State<HomeScreen> {
     return showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: const Text('Enable Two-Factor Authentication'),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '1. Scan this QR code with your authenticator app:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: setupData.qrCodeUrl.isNotEmpty
-                    ? SizedBox(
-                        width: 200.0,
-                        height: 200.0,
-                        child: QrImageView(
-                          data: setupData.qrCodeUrl,
-                          version: QrVersions.auto,
-                          size: 200.0,
-                          errorStateBuilder: (cxt, err) => Center(
-                            child: Text(
-                              'QR Code Error: ${err.toString()}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(fontSize: 12),
-                            ),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(
-                        width: 200.0,
-                        height: 200.0,
-                        child: Center(
-                          child: Text(
-                            'QR Code URL not available',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
-                      ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                '2. Or manually enter this secret:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 4),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  setupData.secret,
-                  style: const TextStyle(fontFamily: 'monospace'),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                '3. Enter the 6-digit code from your app:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: codeController,
-                decoration: const InputDecoration(
-                  hintText: '000000',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                maxLength: 6,
-              ),
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.yellow.shade50,
-                  border: Border.all(color: Colors.yellow.shade300),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      '⚠️ Important: Save these backup codes!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange,
-                      ),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Enable Two-Factor Authentication'),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '1. Scan this QR code with your authenticator app:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      setupData.backupCodes,
+                    child:
+                        setupData.qrCodeUrl.isNotEmpty
+                            ? SizedBox(
+                              width: 200.0,
+                              height: 200.0,
+                              child: QrImageView(
+                                data: setupData.qrCodeUrl,
+                                version: QrVersions.auto,
+                                size: 200.0,
+                                errorStateBuilder:
+                                    (cxt, err) => Center(
+                                      child: Text(
+                                        'QR Code Error: ${err.toString()}',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                              ),
+                            )
+                            : const SizedBox(
+                              width: 200.0,
+                              height: 200.0,
+                              child: Center(
+                                child: Text(
+                                  'QR Code URL not available',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    '2. Or manually enter this secret:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      setupData.secret,
                       style: const TextStyle(fontFamily: 'monospace'),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    '3. Enter the 6-digit code from your app:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: codeController,
+                    decoration: const InputDecoration(
+                      hintText: '000000',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLength: 6,
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.yellow.shade50,
+                      border: Border.all(color: Colors.yellow.shade300),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '⚠️ Important: Save these backup codes!',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          setupData.backupCodes,
+                          style: const TextStyle(fontFamily: 'monospace'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (codeController.text.length != 6) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter a 6-digit code'),
+                        ),
+                      );
+                    }
+                    return;
+                  }
+
+                  // Enable 2FA with the code
+                  final enableResult = await BetterAuthClient.instance.twoFactor
+                      .enable(code: codeController.text);
+
+                  if (!context.mounted) return;
+
+                  if (enableResult.error != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error: ${enableResult.error!.message}'),
+                      ),
+                    );
+                  } else {
+                    Navigator.pop(context);
+                    setState(() => _is2FAEnabled = true);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('2FA enabled successfully!'),
+                      ),
+                    );
+                  }
+                },
+                child: const Text('Enable 2FA'),
               ),
             ],
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              if (codeController.text.length != 6) {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Please enter a 6-digit code')),
-                  );
-                }
-                return;
-              }
-
-              // Enable 2FA with the code
-              final enableResult =
-                  await BetterAuthClient.instance.twoFactor.enable(
-                code: codeController.text,
-              );
-
-              if (!context.mounted) return;
-
-              if (enableResult.error != null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text('Error: ${enableResult.error!.message}')),
-                );
-              } else {
-                Navigator.pop(context);
-                setState(() => _is2FAEnabled = true);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('2FA enabled successfully!')),
-                );
-              }
-            },
-            child: const Text('Enable 2FA'),
-          ),
-        ],
-      ),
     );
   }
 
@@ -257,37 +262,39 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Disable Two-Factor Authentication'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-                'Enter your 2FA code to disable two-factor authentication:'),
-            const SizedBox(height: 16),
-            TextField(
-              controller: codeController,
-              decoration: const InputDecoration(
-                hintText: '000000',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.number,
-              maxLength: 6,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Disable Two-Factor Authentication'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Enter your 2FA code to disable two-factor authentication:',
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: codeController,
+                  decoration: const InputDecoration(
+                    hintText: '000000',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 6,
+                ),
+              ],
             ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, true),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: const Text('Disable'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Disable'),
-          ),
-        ],
-      ),
     );
 
     if (confirmed != true || codeController.text.length != 6) return;
@@ -354,16 +361,17 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: _isLoading ? null : _signOut,
-            icon: _isLoading
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  )
-                : const Icon(Icons.logout),
+            icon:
+                _isLoading
+                    ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                    : const Icon(Icons.logout),
           ),
         ],
       ),
@@ -406,10 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 8),
               Text(
                 'You are successfully authenticated.',
-                style: TextStyle(
-                  color: Colors.grey.shade400,
-                  fontSize: 16,
-                ),
+                style: TextStyle(color: Colors.grey.shade400, fontSize: 16),
               ),
               const SizedBox(height: 32),
               Container(
@@ -432,10 +437,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 16),
                     _buildInfoRow(
-                        'Email', _currentUser?.email ?? 'Not available'),
+                      'Email',
+                      _currentUser?.email ?? 'Not available',
+                    ),
                     const SizedBox(height: 12),
                     _buildInfoRow(
-                        'Name', _currentUser?.name ?? 'Not available'),
+                      'Name',
+                      _currentUser?.name ?? 'Not available',
+                    ),
                     const SizedBox(height: 12),
                     _buildInfoRow('ID', _currentUser?.id ?? 'Not available'),
                   ],
@@ -518,12 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-          ),
+          child: Text(value, style: const TextStyle(color: Colors.white)),
         ),
       ],
     );

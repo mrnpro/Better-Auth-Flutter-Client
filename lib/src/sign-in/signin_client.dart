@@ -25,9 +25,9 @@ abstract class SigninClient {
     Error<BetterAuthException>? onError,
   });
 
-  Future<({BetterAuthException? error, String? loginUrl})> social({
+  Future<({BetterAuthException? error, String? loginUrl, User? user})> social({
     required Providers provider,
-    Map<String, dynamic>? idToken,
+    String? idToken,
 
     Success<User>? onSuccess,
     Error<BetterAuthException>? onError,

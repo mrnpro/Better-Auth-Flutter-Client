@@ -140,7 +140,10 @@ class BetterAuthClient with ErrorHandler {
     try {
       final response = await _httpService?.postRequest(
         ApiEndpoints.sendVerificationEmail,
-        body: {'email': email, 'callbackURL': callbackURL},
+        body: {
+          'email': email,
+          if (callbackURL != null) 'callbackURL': callbackURL,
+        },
       );
       onSuccess?.call(response!);
     } catch (e) {
