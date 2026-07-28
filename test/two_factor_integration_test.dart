@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:better_auth_client/better_auth_client.dart';
-import 'package:better_auth_client/src/core/handlers/error-handler/models/better_auth_exception.dart';
 
 void main() {
   setUp(() {

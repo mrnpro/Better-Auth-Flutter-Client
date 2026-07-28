@@ -1,19 +1,13 @@
 abstract class ApiEndpoints {
-  static const _prefix = '/api/auth';
-  static const String signIn = '$_prefix/sign-in/email';
-  static const String signInSocial = '$_prefix/sign-in/social';
-  static const String signUp = '$_prefix/sign-up/email';
-  static const String resetPassword = '$_prefix/reset-password';
-  static const String sendVerificationEmail =
-      '$_prefix/send-verification-email';
-  static const String forgetPassword = '$_prefix/forget-password';
+  static String prefix = '/api/auth';
 
-  // Phone Authentication
-  static const String phoneSendOtp = '$_prefix/phone/send-otp';
-  static const String phoneVerifyOtp = '$_prefix/phone/verify-otp';
-  static const String phoneForgetPassword = '$_prefix/phone/forget-password';
-  static const String phoneResetPassword = '$_prefix/phone/reset-password';
+  static String get signIn => '$prefix/sign-in/email';
+  static String get signInSocial => '$prefix/sign-in/social';
+  static String get signUp => '$prefix/sign-up/email';
+  static String get resetPassword => '$prefix/reset-password';
+  static String get sendVerificationEmail => '$prefix/send-verification-email';
+  static String get forgetPassword => '$prefix/forget-password';
 
   // Anonymous Authentication
-  static const String signInAnonymous = '$_prefix/sign-in/anonymous';
+  static String get signInAnonymous => '$prefix/sign-in/anonymous';
 }

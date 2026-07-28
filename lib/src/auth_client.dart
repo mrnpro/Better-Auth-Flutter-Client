@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'dart:developer' as dev;
 import 'package:better_auth_client/src/core/handlers/error-handler/error_handler.dart';
 import 'package:better_auth_client/src/core/handlers/error-handler/models/better_auth_exception.dart';
 import 'package:better_auth_client/src/models/response/better_auth_http_response.dart';
@@ -27,12 +27,14 @@ class BetterAuthClient with ErrorHandler {
   static String? _baseUrl;
   static Future<BetterAuthClient> create({
     required String baseUrl,
+    String prefix = '/api/auth',
     BetterAuthLocalStorage? localStorage,
   }) async {
     _baseUrl = baseUrl;
-    log('--------------------------------');
-    log('Initializing better auth with base URL: $baseUrl');
-    log('--------------------------------');
+    ApiEndpoints.prefix = prefix;
+    dev.log('--------------------------------');
+    dev.log('Initializing better auth with base URL: $baseUrl');
+    dev.log('--------------------------------');
 
     // Initialize HTTP service first
     HttpService.instance.init(baseUrl);
@@ -52,7 +54,7 @@ class BetterAuthClient with ErrorHandler {
       userLocalService: _userLocalService,
     );
 
-    log('BetterAuth initialized successfully!');
+    dev.log('BetterAuth initialized successfully!');
     // Don't load user during initialization to avoid hanging the app
     // User will be loaded when needed by the auth wrapper
     // log('-------------Getting Current User-------------------');
@@ -92,14 +94,14 @@ class BetterAuthClient with ErrorHandler {
     final currentUser = await getCurrentUser();
     if (currentUser != null) {
       await _userLocalService?.deleteUser();
-      log('Signed out');
+      dev.log('Signed out');
       onSuccess?.call(null);
     } else {
       final error = BetterAuthException(
         message: 'No user found',
         code: BetterAuthExceptionCode.noUserFound,
       );
-      log(error.message.toString());
+      dev.log(error.message.toString());
       onError?.call(error);
     }
   }
@@ -115,7 +117,7 @@ class BetterAuthClient with ErrorHandler {
         body: {'email': email},
       );
 
-      log('Password reset email sent');
+      dev.log('Password reset email sent');
       onSuccess?.call(response!);
       return;
     } catch (e) {
@@ -138,7 +140,10 @@ class BetterAuthClient with ErrorHandler {
     try {
       final response = await _httpService?.postRequest(
         ApiEndpoints.sendVerificationEmail,
-        body: {'email': email, 'callbackURL': callbackURL},
+        body: {
+          'email': email,
+          if (callbackURL != null) 'callbackURL': callbackURL,
+        },
       );
       onSuccess?.call(response!);
     } catch (e) {

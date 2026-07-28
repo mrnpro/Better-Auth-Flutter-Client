@@ -1,5 +1,6 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
 import 'package:better_auth_client/src/core/configs/api_endpoints.dart';
+import 'package:better_auth_client/src/plugins/two-factor/two_factor_endpoints.dart';
 import 'package:better_auth_client/src/core/configs/enums/providers.dart';
 import 'package:better_auth_client/src/core/handlers/error-handler/models/better_auth_exception.dart';
 import 'package:better_auth_client/src/core/types.dart';
@@ -34,13 +35,13 @@ class SignInClientImpl with ErrorHandler implements SigninClient {
 
       final user = User.fromJson(response.body['data']['user']);
       await _userLocalService.setUser(user);
-      
-      log('Anonymous sign-in successful: ${user.id}');
+
+      dev.log('Anonymous sign-in successful: ${user.id}');
       onSuccess?.call(user);
 
       return (error: null, user: user);
     } catch (e) {
-      log('Anonymous sign-in failed: $e');
+      dev.log('Anonymous sign-in failed: $e');
       final error = handleException(e);
       onError?.call(error);
       return (error: error, user: null);
@@ -100,7 +101,7 @@ class SignInClientImpl with ErrorHandler implements SigninClient {
   }) async {
     try {
       final response = await _httpService.postRequest(
-        '/api/auth/sign-in/two-factor',
+        TwoFactorEndpoints.signInTwoFactor,
         body: {'code': code},
       );
 
@@ -117,25 +118,42 @@ class SignInClientImpl with ErrorHandler implements SigninClient {
   }
 
   @override
-  Future<({BetterAuthException? error, String? loginUrl})> social({
+  Future<({BetterAuthException? error, String? loginUrl, User? user})> social({
     required Providers provider,
-    Map<String, dynamic>? idToken,
+    String? idToken,
     Success<User>? onSuccess,
     Error<BetterAuthException>? onError,
   }) async {
     try {
-      final res = await _httpService.postRequest(
-        ApiEndpoints.signInSocial,
-        body: {"provider": provider.name},
-      );
+      if (idToken != null) {
+        // Direct native sign-in using idToken
+        final res = await _httpService.postRequest(
+          ApiEndpoints.signInSocial,
+          body: {
+            "provider": provider.name,
+            "idToken": {"token": idToken},
+          },
+        );
 
-      final {"url": String loginUrl, "redirect": redirect} = res.body;
-      launchUrl(Uri.parse(loginUrl));
-      return (error: null, loginUrl: loginUrl);
+        final user = User.fromJson(res.body);
+        await _userLocalService.setUser(user);
+        onSuccess?.call(user);
+        return (error: null, loginUrl: null, user: user);
+      } else {
+        // Fallback to web redirect
+        final res = await _httpService.postRequest(
+          ApiEndpoints.signInSocial,
+          body: {"provider": provider.name},
+        );
+
+        final {"url": String loginUrl, "redirect": redirect} = res.body;
+        await launchUrl(Uri.parse(loginUrl));
+        return (error: null, loginUrl: loginUrl, user: null);
+      }
     } catch (e) {
       final error = handleException(e);
       onError?.call(error);
-      return (error: error, loginUrl: null);
+      return (error: error, loginUrl: null, user: null);
     }
   }
 }

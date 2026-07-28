@@ -1,4 +1,3 @@
-
 import 'package:better_auth_client/src/plugins/phone-auth/src/phone_number_auth_plugin_impl.dart';
 
 import '../../core/types.dart';

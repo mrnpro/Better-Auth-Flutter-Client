@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:better_auth_client/better_auth_client.dart';
 import 'package:better_auth_client/src/plugins/phone-auth/src/phone_number_auth_plugin_impl.dart';
+import 'package:better_auth_client/src/core/configs/api_endpoints.dart';
+import 'package:better_auth_client/src/plugins/phone-auth/src/phone_auth_endpoints.dart';
+import 'package:better_auth_client/src/plugins/two-factor/two_factor_endpoints.dart';
 
 void main() {
   group('TwoFactorClient', () {
@@ -58,5 +61,39 @@ void main() {
       // Note: Actual API testing requires BetterAuthClient.create() with a server
       expect(true, true); // Placeholder - method exists in signin_client.dart
     });
+  });
+
+  group('ApiEndpoints and Prefix Configuration', () {
+    setUp(() {
+      ApiEndpoints.prefix = '/api/auth';
+    });
+
+    tearDown(() {
+      ApiEndpoints.prefix = '/api/auth';
+    });
+
+    test('default prefix is set to /api/auth', () {
+      expect(ApiEndpoints.prefix, '/api/auth');
+      expect(ApiEndpoints.signIn, '/api/auth/sign-in/email');
+      expect(TwoFactorEndpoints.generate, '/api/auth/two-factor/generate');
+      expect(PhoneAuthEndpoints.sendOtp, '/api/auth/phone/send-otp');
+    });
+
+    test(
+      'custom prefix can be configured via BetterAuthClient.create',
+      () async {
+        await BetterAuthClient.create(
+          baseUrl: 'https://example.com',
+          prefix: '/custom/auth/path',
+        );
+        expect(ApiEndpoints.prefix, '/custom/auth/path');
+        expect(ApiEndpoints.signIn, '/custom/auth/path/sign-in/email');
+        expect(
+          TwoFactorEndpoints.generate,
+          '/custom/auth/path/two-factor/generate',
+        );
+        expect(PhoneAuthEndpoints.sendOtp, '/custom/auth/path/phone/send-otp');
+      },
+    );
   });
 }

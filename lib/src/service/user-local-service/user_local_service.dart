@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer' as dev;
 
 import 'package:better_auth_client/better_auth_client.dart';
 
@@ -69,12 +70,12 @@ class UserLocalServiceImpl extends UserLocalService {
     try {
       await deleteUser();
       final userJson = user.toJson();
-      print('📝 UserLocalService: Adding user to stream: ${user.email}');
+      dev.log('📝 UserLocalService: Adding user to stream: ${user.email}');
       _userController.add(user);
       await localStorageService.create(_userKey, jsonEncode(userJson));
-      print('✅ UserLocalService: User saved successfully');
+      dev.log('✅ UserLocalService: User saved successfully');
     } catch (e) {
-      print('❌ UserLocalService: Error saving user: $e');
+      dev.log('❌ UserLocalService: Error saving user: $e');
       rethrow;
     }
   }

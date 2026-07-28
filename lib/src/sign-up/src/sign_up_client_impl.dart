@@ -38,9 +38,9 @@ class SignUpClientImpl with ErrorHandler implements SignupClient {
         body: {
           'email': email,
           'password': password,
-          'name': name,
-          'image': image,
-          'callbackUrl': callbackUrl,
+          if (name != null) 'name': name,
+          if (image != null) 'image': image,
+          if (callbackUrl != null) 'callbackUrl': callbackUrl,
           if (data != null) ...data,
         },
       );
